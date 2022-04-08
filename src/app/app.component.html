@@ -1,0 +1,103 @@
+<div class="container">
+  <form [formGroup]="CartaoForm" (ngSubmit)="this.EventValue()">
+    <h3>Cartão - Pagamentos</h3>
+    <div class="row">
+      <table class="table">
+        <tr>
+          <td>Nome do Titular</td>
+          <td>
+            <input type="hidden" formControlName="PagamentoId" />
+            <input type="text" formControlName="NomeTitular" />
+            <div
+              *ngtsc="submitted && CartaoForm.controls.NomeTitular.errors"
+              class="text-danger"
+            >
+              <div *ngtsc="CartaoForm.controls.NomeTitular.errors.required">
+                O nome é obrigatório
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Número do Cartão</td>
+          <td>
+            <input type="text" formControlName="NumeroCartao" />
+            <div
+              *ngtsc="submitted && CartaoForm.controls.NumeroCartao.errors"
+              class="text-danger"
+            >
+              <div *ngtsc="CartaoForm.controls.NumeroCartao.errors.required">
+                O número do cartão é obrigatório
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Data de Expiração</td>
+          <td>
+            <input type="text" formControlName="DataExpiracao" />
+            <div
+              *ngtsc="submitted && CartaoForm.controls.DataExpiracao.errors"
+              class="text-danger"
+            >
+              <div *ngtsc="CartaoForm.controls.DataExpiracao.errors.required">
+                Informe a data de expiração
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>CVV</td>
+          <td>
+            <input type="text" formControlName="CVV" />
+            <div
+              *ngtsc="submitted && CartaoForm.controls.CVV.errors"
+              class="text-danger"
+            >
+              <div *ngtsc="CartaoForm.controls.CVV.errors.required">
+                O CVV é obrigatório
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="btn btn-primary">
+              {{ EventValue }}
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <table class="table table-striped">
+        <tr>
+          <td>ID</td>
+          <td>Nome</td>
+          <td>No. Cartão</td>
+          <td>Data Expiração</td>
+          <td>CVV</td>
+          <td>Edita</td>
+          <td>Deleta</td>
+        </tr>
+        <tr *ngFor="let d of data">
+          <td>{{ d.PagamentoId }}</td>
+          <td>{{ d.NomeTitular }}</td>
+          <td>{{ d.NumeroCartao }}</td>
+          <td>{{ d.DataExpiracao }}</td>
+          <td>{{ d.CVV }}</td>
+          <td>
+            <a (click)="EditData(d)" class="btn btn-warning">Edita</a>
+          </td>
+          <td>
+            <a (click)="deleteData(d.PagamentoId)" class="btn btn-danger"
+              >Deleta</a
+            >
+          </td>
+        </tr>
+      </table>
+
+      <router-outlet></router-outlet>
+    </div>
+  </form>
+</div>
