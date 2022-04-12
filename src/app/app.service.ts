@@ -4,26 +4,28 @@ import { HttpClient,HttpHeaders }    from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppService {
-  readonly rootURL = 'http://localhost:4200/api';
+  readonly rootURL = 'http://localhost:44329/api';
 
   constructor(private http: HttpClient) { }
   httpOptions = {  
     headers: new HttpHeaders({  
-      'Content-Type': 'application/json'  
+      'Content-Type': 'application/json', 
+      'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',
+      'Access-Control-Allow-Origin': '*'
     })  
   }  
   getData(){  
-    return this.http.get(this.rootURL + '/Pagamentos'); 
+    return this.http.get(this.rootURL + '/Pagamento'); 
   }        
   postData(formData: any){  
-    return this.http.post(this.rootURL + '/Pagamentos',formData);  
+    return this.http.post(this.rootURL + '/Pagamento',formData);  
   }  
   putData(id: string,formData: any){  
-    return this.http.put(this.rootURL + '/Pagamentos/'+id,formData);  
+    return this.http.put(this.rootURL + '/Pagamento/'+id,formData);  
   }  
 
   deleteData(id: string){  
-    return this.http.delete(this.rootURL + '/Pagamentos/'+id);  
+    return this.http.delete(this.rootURL + '/Pagamento/'+id);  
   }  
 }
 

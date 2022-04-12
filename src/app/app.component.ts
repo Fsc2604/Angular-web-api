@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck } from '@angular/core';
 import {AppService} from './app.service';  
 import { FormGroup, FormControl,Validators } from '@angular/forms';
+import { Pagamentoo } from './Pagamentoo';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,8 @@ import { FormGroup, FormControl,Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'angular-webapi';
-  constructor(private AppService: AppService) { }  
-  data: any;  
+  constructor(private AppService: AppService,private _changeRef: ChangeDetectorRef) { }  
+  data: Pagamentoo[] = [];  
   CartaoForm!: FormGroup;
   submitted = false;   
   EventValue: any = "Salvar";    
@@ -18,13 +19,16 @@ export class AppComponent {
     this.getdata();    
     
     this.CartaoForm = new FormGroup({  
-      PagamentoId: new FormControl(null),  
-      NomeTitular: new FormControl("",[Validators.required]),        
-      NumeroCartao: new FormControl("",[Validators.required]),  
-      DataExpiracao:new FormControl("",[Validators.required]),  
+      Id: new FormControl(null),  
+      NomeTitular: new FormControl("",Validators.required),        
+      NumeroCartao: new FormControl("",Validators.required),  
+      DataExpiracao:new FormControl("",Validators.required),  
       CVV: new FormControl("",[Validators.required]),  
     })   
   } 
+  ngDoCheck() {
+    this._changeRef.markForCheck();
+  }
   getdata() {  
     this.AppService.getData().subscribe((data: any) => {  
       this.data = data;  
@@ -53,14 +57,14 @@ Update() {
   if (this.CartaoForm.invalid) {  
    return;  
   }        
-  this.AppService.putData(this.CartaoForm.value.PagamentoId,
+  this.AppService.putData(this.CartaoForm.value.Id,
            this.CartaoForm.value).subscribe((data: any) => {  
     this.data = data;  
     this.resetFrom();  
   })  
 }  
-EditData(Data: { PagamentoId: any; NomeTitular: any; NumeroCartao: any; DataExpiracao: any; CVV: any; }) {  
-  this.CartaoForm.controls["PagamentoId"].setValue(Data.PagamentoId);  
+EditData(Data: { Id:String; NomeTitular:String; NumeroCartao: String; DataExpiracao: String; CVV: String; }) {  
+  this.CartaoForm.controls["Id"].setValue(Data.Id);  
   this.CartaoForm.controls["NomeTitular"].setValue(Data.NomeTitular);      
   this.CartaoForm.controls["NumeroCartao"].setValue(Data.NumeroCartao);  
   this.CartaoForm.controls["DataExpiracao"].setValue(Data.DataExpiracao);  
