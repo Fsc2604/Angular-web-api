@@ -1,6 +1,6 @@
 export interface Pagamentoo{
     
-  Id: string;
+  Id: number;
 
   NomeTitular: string;
 

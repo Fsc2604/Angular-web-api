@@ -7,11 +7,12 @@ import { Pagamentoo } from './Pagamentoo';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
   title = 'angular-webapi';
   constructor(private AppService: AppService,private _changeRef: ChangeDetectorRef) { }  
-  data: Pagamentoo[] = [];  
+  data: Pagamentoo []= [];  
   CartaoForm!: FormGroup;
   submitted = false;   
   EventValue: any = "Salvar";    
@@ -20,9 +21,9 @@ export class AppComponent {
     
     this.CartaoForm = new FormGroup({  
       Id: new FormControl(null),  
-      NomeTitular: new FormControl("",Validators.required),        
-      NumeroCartao: new FormControl("",Validators.required),  
-      DataExpiracao:new FormControl("",Validators.required),  
+      NomeTitular: new FormControl("",[Validators.required]),        
+      NumeroCartao: new FormControl("",[Validators.required]),  
+      DataExpiracao:new FormControl("",[Validators.required]),  
       CVV: new FormControl("",[Validators.required]),  
     })   
   } 
@@ -47,7 +48,7 @@ Save() {
           return;  
    }  
   this.AppService.postData(this.CartaoForm.value).subscribe((data: any) => {  
-    this.data = data;  
+    //this.data = data;  
     this.resetFrom(); 
       
   })  
@@ -63,7 +64,7 @@ Update() {
     this.resetFrom();  
   })  
 }  
-EditData(Data: { Id:String; NomeTitular:String; NumeroCartao: String; DataExpiracao: String; CVV: String; }) {  
+EditData(Data: { Id:number; NomeTitular:String; NumeroCartao: String; DataExpiracao: String; CVV: String; }) {  
   this.CartaoForm.controls["Id"].setValue(Data.Id);  
   this.CartaoForm.controls["NomeTitular"].setValue(Data.NomeTitular);      
   this.CartaoForm.controls["NumeroCartao"].setValue(Data.NumeroCartao);  
