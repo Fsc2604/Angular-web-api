@@ -5,7 +5,7 @@ import { HttpClient,HttpHeaders }    from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppService {
-  readonly rootURL = 'http://localhost:44329/api';
+  readonly rootURL = 'https://localhost:44329/api';
 
   constructor(private http: HttpClient) { }
   httpOptions = {  

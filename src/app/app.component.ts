@@ -20,7 +20,7 @@ export class AppComponent implements DoCheck {
     this.getdata();    
     
     this.CartaoForm = new FormGroup({  
-      Id: new FormControl(null),  
+      Id: new FormControl(0),  
       NomeTitular: new FormControl("",[Validators.required]),        
       NumeroCartao: new FormControl("",[Validators.required]),  
       DataExpiracao:new FormControl("",[Validators.required]),  
@@ -76,6 +76,7 @@ resetFrom()
 {     
   this.getdata();  
   this.CartaoForm.reset();  
+  this.CartaoForm.controls["Id"].setValue(0);
   this.EventValue = "Salvar";  
   this.submitted = false;   
 } 
