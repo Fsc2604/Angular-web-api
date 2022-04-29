@@ -351,7 +351,7 @@
 
 <div class="content" role="main">
   <div class="container">
-    <form [formGroup]="CartaoForm" (ngSubmit)="this.EventValue()">
+    <form [formGroup]="CartaoForm">
       <h3>Cartão - Pagamentos</h3>
       <div class="row">
         <table class="table">
@@ -422,7 +422,10 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button type="submit" class="btn btn-primary" (click)="Save()">
+              <button *ngIf="EventValue === 'Salvar'" type="submit" class="btn btn-primary" (click)="Save()">
+                {{ EventValue }}
+              </button>
+              <button *ngIf="EventValue === 'Atualizar'" type="submit" class="btn btn-primary" (click)="Update()">
                 {{ EventValue }}
               </button>
             </td>
@@ -441,16 +444,16 @@
             <td>Deleta</td>
           </tr>
           <tr *ngFor="let d of data">
-            <td>{{ d.Id }}</td>
-            <td>{{ d.NomeTitular }}</td>
-            <td>{{ d.NumeroCartao }}</td>
-            <td>{{ d.DataExpiracao }}</td>
-            <td>{{ d.CVV }}</td>
+            <td>{{ d.id }}</td>
+            <td>{{ d.nomeTitular }}</td>
+            <td>{{ d.numeroCartao }}</td>
+            <td>{{ d.dataExpiracao }}</td>
+            <td>{{ d.cvv }}</td>
             <td>
               <a (click)="EditData(d)" class="btn btn-warning">Edita</a>
             </td>
             <td>
-              <a (click)="deleteData(d.Id.toString())" class="btn btn-danger"
+              <a (click)="deleteData(d.id)" class="btn btn-danger"
                 >Deleta</a
               >
             </td>
